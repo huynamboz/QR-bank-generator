@@ -1,4 +1,5 @@
-# vietqrBank
+# vietqrBank : demo : [qr-bank-generate](https://qr-generator.ltesletsflyhigh.com/)
+![image](https://github.com/huynamboz/QR-bank-generator/assets/38585889/50bf3b5f-2dc2-4811-bd09-2702fbf9a33a)
 
 ## Build Setup
 
