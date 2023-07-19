@@ -1,5 +1,14 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
+  server: {
+	port: 3010,
+	host: '0.0.0.0'
+	// host: 'localhost'
+	// https: {
+	//   key: fs.readFileSync(path.resolve(__dirname, 'server.key')),
+	//   cert: fs.readFileSync(path.resolve(__dirname, 'server.crt'))
+	// }
+},
   head: {
     title: 'vietqrBank',
     htmlAttrs: {
