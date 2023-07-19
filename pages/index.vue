@@ -3,7 +3,7 @@
 		<div class="w-full max-w-[1200px] flex max-md:flex-col justify-center gap-5">
 			<div class="flex-[1] max-md:flex-[auto] w-full">
 				<!-- <p class="font-bold text-2xl mb-5">Create vietQr</p> -->
-				<code>Tạo QR chuyển khoản nhanh từ thông tin tài khoản 🪄</code>
+				<code>Tạo QR chuyển khoản nhanh từ thông tin tài khoản (các ứng dụng thanh toán có chức năng quét mã QR hầu hết có thể quét được) 🪄</code>
 				<div class="flex flex-col mt-3">
 					<p>Bank:</p>
 					<select v-model="bankId" @change="validateBankId()"
@@ -35,8 +35,8 @@
 				</div>
 				<div class="flex flex-col">
 					<p>Nội dung chuyển khoản: (ghi không dấu)</p>
-					<input @input="image = ''" maxlength="40" v-model="description" type="text" placeholder="(Không bắt buộc)"
-						class="py-1 px-2 border-[1px] rounded-md">
+					<input @input="image = ''" maxlength="40" v-model="description" type="text"
+						placeholder="(Không bắt buộc)" class="py-1 px-2 border-[1px] rounded-md">
 					<div class="h-[25px] text-rose-500">
 						{{ errValidate.description }}
 					</div>
@@ -45,8 +45,10 @@
 					<button class="bg-[#2cb656] text-white px-7 py-1 h-fit rounded-lg" @click="createQR()">Tạo QR</button>
 				</div>
 			</div>
-			<div class=" flex-[1] max-md:flex-[auto] flex justify-center items-center py-5 flex-col mt-5 bg-white border-[1px] max-md:border-0 rounded-lg h-fit min-h-[400px] pb-3">
-				<div id="item-qr" v-if="image" class="w-fit h-fit flex flex-col items-center p-2 bg-white border-[1px] rounded-lg">
+			<div
+				class=" flex-[1] max-md:flex-[auto] flex justify-center items-center py-5 flex-col mt-5 bg-white border-[1px] max-md:border-0 rounded-lg h-fit min-h-[400px] pb-3">
+				<div id="item-qr" v-if="image"
+					class="w-fit h-fit flex flex-col items-center p-2 bg-white border-[1px] rounded-lg">
 					<div class="flex flex-col w-[300px] max-md:w-full items-center">
 						<div class="flex gap-1 items-center justify-center max-md:max-w-[unset]">
 							<img src="../assets/images/logo.png" alt="" class="h-[30px] w-[140px] object-contain">
@@ -60,7 +62,8 @@
 					<div>
 						<p class="text-center text-[#2cb656] font-base text-sm">STK: {{ bankNumber }}</p>
 						<p v-if="amount" class="text-center text-[#2cb656] font-base text-sm">Số tiền: {{ amount }} VND</p>
-						<p v-if="description" class="text-center text-[#2cb656] font-base text-sm">Nội dung: {{ description }}</p>
+						<p v-if="description" class="text-center text-[#2cb656] font-base text-sm">Nội dung: {{ description
+						}}</p>
 					</div>
 				</div>
 				<div v-if="image" class="flex w-full flex justify-center mt-2 h-fit">
@@ -71,8 +74,9 @@
 	</div>
 </template>
 <script>
-import * as htmlToImage from 'html-to-image';
-import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
+import domtoimage from 'dom-to-image';
+import { saveAs } from 'file-saver';
+
 export default {
 	layout: 'default',
 	data() {
@@ -105,13 +109,14 @@ export default {
 	},
 	methods: {
 		downImage() {
-			htmlToImage.toJpeg(document.getElementById('item-qr'), { quality: 0.95 })
-				.then(function (dataUrl) {
-					var link = document.createElement('a');
-					link.download = 'my-image-name.jpeg';
-					link.href = dataUrl;
-					link.click();
+			try {
+				domtoimage.toBlob(document.getElementById('item-qr'), { quality: 1 })
+				.then(function (blob) {
+					window.saveAs(blob, 'my-node.png');
 				});
+			} catch (error) {
+				console.log(error)
+			}
 		},
 		validateBankId() {
 			this.image = '';
@@ -146,7 +151,7 @@ export default {
 			}
 		},
 		getBanks() {
-			this.$axios.$get('https://api.ltesletsflyhigh.com/qr/banks')
+			this.$axios.$get('/qr/banks')
 				.then(res => {
 					this.banks = res.data
 				})

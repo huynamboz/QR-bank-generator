@@ -10,7 +10,7 @@ export default {
 	// }
 },
   head: {
-    title: 'vietqrBank',
+    title: 'QR bank generator',
     htmlAttrs: {
       lang: 'en'
     },
@@ -51,7 +51,9 @@ export default {
   modules: [
 	'@nuxtjs/axios',
   ],
-
+  axios: {
+	baseURL: 'https://api.ltesletsflyhigh.com',
+	},
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
   }

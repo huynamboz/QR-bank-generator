@@ -14,7 +14,7 @@
 		</div>
 		<Nuxt class="pt-20"/>
 		<div class="w-full flex justify-center text-xs">
-			CopyRight © 2021 by &nbsp; <a href="https://huynamboz.github.io" class="text-blue-500">CerusCS</a>
+			CopyRight © 2021 &nbsp; <a href="https://huynamboz.github.io" class="text-blue-500">CerusCS</a>
 		</div>
 	</div>
 </template>
