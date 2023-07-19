@@ -34,8 +34,8 @@
 					</div>
 				</div>
 				<div class="flex flex-col">
-					<p>Nội dung chuyển khoản:</p>
-					<input @input="image = ''" v-model="description" type="text" placeholder="(Không bắt buộc)"
+					<p>Nội dung chuyển khoản: (ghi không dấu)</p>
+					<input @input="image = ''" maxlength="40" v-model="description" type="text" placeholder="(Không bắt buộc)"
 						class="py-1 px-2 border-[1px] rounded-md">
 					<div class="h-[25px] text-rose-500">
 						{{ errValidate.description }}
